@@ -28,19 +28,5 @@ Before committing, `black` and the [generate_readme.py](script/generate_readme.p
 
 ## Usage
 
-* [Functions](#functions)
-  * [get_lyrics](#get_lyrics)
-
----
-
-### Functions
-
-#### get_lyrics
-
-Function to write lyrics from a list of artists into a csv file.
-
-*Arguments*
-
-* **artists** *list[str]* - list of artists name.
-* **output_file** *str* - name of the output image (csv format).
-* **token** *str* - token for the genius API (https://docs.genius.com/).
+{toc}
+{docs}
