@@ -1,0 +1,15 @@
+ repos:
+   - repo: https://github.com/psf/black
+     rev: 21.7b0
+     hooks:
+     - id: black
+       language_version: python3.10
+
+  repos:
+    - repo: local
+      hooks:
+        - id: custom-readme-generation
+          name: Generates the readme
+          entry: python -m script.generate_readme > README.md
+          language: system
+          types: [python]

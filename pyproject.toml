@@ -12,5 +12,9 @@ dependencies = [
     "lyricsgenius"
 ]
 
+[project.optional-dependencies]
+readme = ["docdocdoc"]
+pre-commit = ["pre-commit"]
+
 [tool.isort]
 profile = "black"
