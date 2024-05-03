@@ -4,11 +4,11 @@ import csv
 from lyricsgenius import Genius
 
 
-def get_lyrics(token, artists):
+def get_lyrics(artists, output_file, token):
 
     headers = ["artist", "title", "lyrics", "album"]
 
-    with open("lyrics.csv", "w", newline="") as file:
+    with open(output_file, "w", newline="") as file:
 
         writer = csv.writer(file)
         writer.writerow(headers)
@@ -19,6 +19,7 @@ def get_lyrics(token, artists):
             artist = genius.search_artist(name, sort="title")
 
             for song in artist.songs:
+
                 row = [song.artist_names, song.title, song.lyrics, song.album.name]
                 writer.writerow(row)
 
@@ -26,15 +27,19 @@ def get_lyrics(token, artists):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("--artists", required=True, help="List of artists")
+    parser.add_argument(
+        "--output-file", required=True, help="Csv file to write the results"
+    )
     parser.add_argument(
         "--token",
         required=True,
         help="Token for the genius API (https://docs.genius.com/)",
     )
-    parser.add_argument("--artists", required=True, help="List of artists")
     args = parser.parse_args()
 
-    token = args.token
     artists = args.artists.split(",")
+    output_file = args.output_file
+    token = args.token
 
-    get_lyrics(token, artists)
+    get_lyrics(artists, output_file, token)
