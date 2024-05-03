@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lyrics_cloud"
+version = "0.1.0"
+description = "A music recommender based on lyrics"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "lyricsgenius"
+]
+
+[tool.isort]
+profile = "black"
