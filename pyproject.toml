@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "lyrics_cloud"
 version = "0.1.0"
-description = "A music recommender based on lyrics"
+description = "Trying things with music lyrics"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "lyricsgenius"
+    "lyricsgenius",
+    "tqdm",
 ]
 
 [project.optional-dependencies]

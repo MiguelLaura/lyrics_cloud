@@ -8,9 +8,10 @@ import csv
 import re
 
 from lyricsgenius import Genius
+from tqdm import tqdm
 
 
-NON_LYRICS_RE = re.compile(r"{0-9}* Contributors.*Lyrics")
+NON_LYRICS_RE = re.compile(r"[0-9]* Contributors.*Lyrics")
 
 
 def get_lyrics(artists, output_file, token):
@@ -30,13 +31,13 @@ def get_lyrics(artists, output_file, token):
         writer = csv.writer(file)
         writer.writerow(headers)
 
-        genius = Genius(token, verbose=False, skip_non_songs=True)
+        genius = Genius(token, verbose=False, skip_non_songs=True, retries=3)
 
-        for name in artists:
-            artist = genius.search_artist(name, sort="title")
+        for name in tqdm(artists, total=len(artists), desc="Number of artists", position=0):
+            artist_songs = genius.search_artist(name, sort="title").songs
 
-            for song in artist.songs:
-                lyrics = NON_LYRICS_RE.sub(lyrics)
+            for song in tqdm(artist_songs, total=len(artist_songs),desc="Number of songs for the artist", position=1):
+                lyrics = NON_LYRICS_RE.sub("", song.lyrics)
                 row = [name, song.title, lyrics]
                 writer.writerow(row)
 
@@ -44,14 +45,14 @@ def get_lyrics(artists, output_file, token):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--artists", required=True, help="List of artists")
+    parser.add_argument("--artists", required=True, help="list of artists")
     parser.add_argument(
-        "--output-file", required=True, help="Csv file to write the results"
+        "--output-file", required=True, help="csv file to write the results"
     )
     parser.add_argument(
         "--token",
         required=True,
-        help="Token for the genius API (https://docs.genius.com/)",
+        help="token for the genius API (https://docs.genius.com/)",
     )
     args = parser.parse_args()
 
