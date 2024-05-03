@@ -1,12 +1,29 @@
+# =============================================================================
+# Script to get lyrics from a list of artists
+# =============================================================================
+#
+
 import argparse
 import csv
+import re
 
 from lyricsgenius import Genius
 
 
-def get_lyrics(artists, output_file, token):
+NON_LYRICS_RE = re.compile(r"{0-9}* Contributors.*Lyrics")
 
-    headers = ["artist", "title", "lyrics", "album"]
+
+def get_lyrics(artists, output_file, token):
+    """
+    Function to write lyrics from a list of artists into a csv file.
+
+    Args:
+        artists (list[str]): list of artists name.
+        output_file (str): name of the output image (csv format).
+        token (str): token for the genius API (https://docs.genius.com/).
+    """
+
+    headers = ["artist", "title", "lyrics"]
 
     with open(output_file, "w", newline="") as file:
 
@@ -19,8 +36,8 @@ def get_lyrics(artists, output_file, token):
             artist = genius.search_artist(name, sort="title")
 
             for song in artist.songs:
-
-                row = [song.artist_names, song.title, song.lyrics, song.album.name]
+                lyrics = NON_LYRICS_RE.sub(lyrics)
+                row = [name, song.title, lyrics]
                 writer.writerow(row)
 
 
