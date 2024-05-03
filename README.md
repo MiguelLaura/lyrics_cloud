@@ -1,6 +1,6 @@
 # lyrics_cloud
 
-Trying things with music lyric.
+Trying things with music lyrics.
 
 Scrape lyrics (either scrape of from json) and
 + create word cloud from them
@@ -24,7 +24,7 @@ To install the Git hooks:
 pre-commit install
 ```
 
-Before committing, `black` and the [generate_readme.py](script/generate_readme.py) will automatically run.
+Before committing, `black` and [generate_readme.py](script/generate_readme.py) will automatically run.
 
 ## Usage
 
