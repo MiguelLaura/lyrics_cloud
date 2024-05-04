@@ -9,7 +9,13 @@ description = "Trying things with music lyrics"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "gensim",
     "lyricsgenius",
+    "nltk",
+    "pandas",
+    "plotly",
+    "scikit-learn",
+    "scipy==1.10.1",
     "tqdm",
 ]
 

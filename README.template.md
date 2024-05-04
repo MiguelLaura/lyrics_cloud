@@ -38,5 +38,9 @@ options:
   --token TOKEN         token for the genius API (https://docs.genius.com/)
 ```
 
+#### Recommender system
+
+You must download Google's pre-trained word2vec vectors [here](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?resourcekey=0-wjGZdNAUop6WykTtMip30g).
+
 {toc}
 {docs}
