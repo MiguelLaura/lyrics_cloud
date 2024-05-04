@@ -181,7 +181,7 @@ if __name__ == "__main__":
     title = args.title
 
     df = pd.read_csv(csv_file)
-    df.lyrics = df.lyrics.apply(func=clean_lyrics)
+    df.lyrics = df.lyrics.apply(func=prepare_lyrics)
 
     # Create corpus
     corpus = []

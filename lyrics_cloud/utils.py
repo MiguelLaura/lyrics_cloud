@@ -6,9 +6,10 @@
 import re
 
 
-CHORUS_RE = re.compile(r"\[(Pre-)?Chorus]\n")
-NON_LYRICS_RE = re.compile(r"[0-9]* Contributors.*Lyrics")
-VERSE_RE = re.compile(r"\[Verse [0-9]*]\n")
+CHORUS_RE = re.compile(r"\[(pre-)?chorus]\n")
+EMBED_RE = re.compile(r"[0-9]*embed")
+NON_LYRICS_RE = re.compile(r"[0-9]* contributors.*lyrics")
+VERSE_RE = re.compile(r"\[verse [0-9]*]\n")
 
 
 def clean_lyrics(lyrics):
@@ -21,6 +22,7 @@ def clean_lyrics(lyrics):
 
     lyrics = lyrics.lower()
     lyrics = CHORUS_RE.sub("", lyrics)
+    lyrics = EMBED_RE.sub("", lyrics)
     lyrics = NON_LYRICS_RE.sub("", lyrics)
     lyrics = VERSE_RE.sub("", lyrics)
 
