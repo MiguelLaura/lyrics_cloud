@@ -139,23 +139,20 @@ def recommend_with_word2vec(df, artist, title, word_embeddings):
         title (str): song title to get recommendations from.
         word_embeddings: averaged word2vec embeddings.
     """
-    lyrics = df.loc[(df["artist"] == artist) & (df["title"] == title), "lyrics"]
+    lyrics = df.loc[(df["artist"] == artist) & (df["title"] == title)]
 
     # Finding cosine similarity for the vectors
     cosine_similarities = cosine_similarity(word_embeddings, word_embeddings)
 
-    # Reverse mapping of the index
-    indices = pd.Series(df.index, index=df["lyrics"]).drop_duplicates()
-
-    idx = indices[lyrics]
+    idx = lyrics.index.values[0]
     sim_scores = list(enumerate(cosine_similarities[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:6]
     song_indices = [i[0] for i in sim_scores]
     recommend = df.iloc[song_indices]
 
-    for _, row in recommend.iterrows():
-        print("Result: ", row["title"], row["artist"])
+    for index, (_, row) in enumerate(recommend.iterrows()):
+        print(index + 1, row["title"], "by", row["artist"])
 
 
 if __name__ == "__main__":
