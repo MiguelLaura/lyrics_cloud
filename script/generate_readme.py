@@ -13,6 +13,7 @@ from lyrics_cloud.utils import clean_lyrics
 
 DOCS = [{"title": "Functions", "fns": [get_lyrics, clean_lyrics]}]
 
+
 if __name__ == "__main__":
     f = io.StringIO()
 
