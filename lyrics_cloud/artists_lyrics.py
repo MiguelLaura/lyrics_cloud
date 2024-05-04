@@ -5,13 +5,11 @@
 
 import argparse
 import csv
-import re
 
 from lyricsgenius import Genius
 from tqdm import tqdm
 
-
-NON_LYRICS_RE = re.compile(r"[0-9]* Contributors.*Lyrics")
+from lyrics_cloud.utils import clean_lyrics
 
 
 def get_lyrics(artists, output_file, token):
@@ -44,7 +42,7 @@ def get_lyrics(artists, output_file, token):
                 desc="Number of songs for the artist",
                 position=1,
             ):
-                lyrics = NON_LYRICS_RE.sub("", song.lyrics)
+                lyrics = clean_lyrics(song.lyrics)
                 row = [name, song.title, lyrics]
                 writer.writerow(row)
 

@@ -9,12 +9,8 @@
 import argparse
 import warnings
 
-warnings.filterwarnings("ignore")
-
 from gensim.models import Word2Vec
 import nltk
-
-nltk.download("stopwords")
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 import numpy as np
@@ -23,16 +19,24 @@ import plotly.graph_objects as go
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 
+from lyrics_cloud.utils import clean_lyrics
 
-def clean_lyrics(lyrics):
+
+warnings.filterwarnings("ignore")
+nltk.download("stopwords")
+
+
+def prepare_lyrics(lyrics):
     """
-    Function to clean the lyrics (remove stop words, punctuation, etc.).
+    Function to prepare the lyrics (remove stop words, punctuation, etc.).
 
     Args:
         lyrics (str): lyrics of a song.
     """
 
     lyrics = lyrics.lower()
+
+    lyrics = clean_lyrics(lyrics)
 
     # Remove stop words
     lyrics = lyrics.split()
