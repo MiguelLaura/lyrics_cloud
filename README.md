@@ -30,7 +30,7 @@ To change the README file, change [README.template.md](README.template.md) first
 #### Get the lyrics to artists' songs
 
 ```bash
-usage: python lyrics_cloud/artists_lyrics.py [-h] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
+usage: python -m lyrics_cloud.artists_lyrics [-h] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
 
 options:
   -h, --help            show this help message and exit
@@ -43,7 +43,7 @@ options:
 #### Recommender system
 
 ```bash
-usage: python lyrics_cloud/content_based_recommender.py [-h] --artist ARTIST --csv-file CSV_FILE --title TITLE
+usage: python -m lyrics_cloud.content_based_recommender [-h] --artist ARTIST --csv-file CSV_FILE --title TITLE
 
 options:
   -h, --help           show this help message and exit

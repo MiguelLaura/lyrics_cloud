@@ -9,6 +9,6 @@ repos:
   hooks:
     - id: readme-generation
       name: Generates the readme
-      entry: python -m script.generate_readme > README.md
+      entry: python -m script.generate_readme
       language: system
       types: [python]

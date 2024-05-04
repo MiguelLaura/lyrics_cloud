@@ -50,7 +50,7 @@ if __name__ == "__main__":
     with redirect_stdout(f):
         generate_readme(DOCS)
 
-readme = f.getvalue()
+    readme = f.getvalue()
 
-with open("README.md", "w") as file:
-    file.write(readme)
+    with open("README.md", "w") as file:
+        file.write(readme)
