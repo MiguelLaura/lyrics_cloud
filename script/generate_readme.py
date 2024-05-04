@@ -8,13 +8,16 @@ import io
 
 from docdocdoc.build import generate_readme
 from lyrics_cloud.artists_lyrics import get_lyrics
+from lyrics_cloud.utils import clean_lyrics
 
-DOCS = [{"title": "Functions", "fns": [get_lyrics]}]
 
-f = io.StringIO()
+DOCS = [{"title": "Functions", "fns": [get_lyrics, clean_lyrics]}]
 
-with redirect_stdout(f):
-    generate_readme(DOCS)
+if __name__ == "__main__":
+    f = io.StringIO()
+
+    with redirect_stdout(f):
+        generate_readme(DOCS)
 
 readme = f.getvalue()
 

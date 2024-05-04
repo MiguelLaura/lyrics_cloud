@@ -21,7 +21,7 @@ pre-commit install
 
 Before committing, `black` and [generate_readme.py](script/generate_readme.py) will automatically run.
 
-To change the README file, change [README.template.md](README.template.md) first and generate the README after (or let the pre-commit do it).
+To change the README file, change [README.template.md](README.template.md) first and generate the README after (or let the pre-commit do it). You'll need to add the new functions to [generate_readme.py](script/generate_readme.py) in `DOCS`.
 
 ## Usage
 
@@ -54,6 +54,7 @@ options:
 
 * [Functions](#functions)
   * [get_lyrics](#get_lyrics)
+  * [clean_lyrics](#clean_lyrics)
 
 ---
 
@@ -68,3 +69,11 @@ Function to write lyrics from a list of artists into a csv file.
 * **artists** *list[str]* - list of artists name.
 * **output_file** *str* - name of the output image (csv format).
 * **token** *str* - token for the genius API (https://docs.genius.com/).
+
+#### clean_lyrics
+
+Function to clean the lyrics.
+
+*Arguments*
+
+* **lyrics** *str* - lyrics of a song.

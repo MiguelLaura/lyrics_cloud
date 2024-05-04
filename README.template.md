@@ -21,7 +21,7 @@ pre-commit install
 
 Before committing, `black` and [generate_readme.py](script/generate_readme.py) will automatically run.
 
-To change the README file, change [README.template.md](README.template.md) first and generate the README after (or let the pre-commit do it).
+To change the README file, change [README.template.md](README.template.md) first and generate the README after (or let the pre-commit do it). You'll need to add the new functions to [generate_readme.py](script/generate_readme.py) in `DOCS`.
 
 ## Usage
 
