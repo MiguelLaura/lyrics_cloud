@@ -11,7 +11,7 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-from gensim.models import Word2Vec, KeyedVectors
+from gensim.models import Word2Vec
 import nltk
 
 nltk.download("stopwords")
@@ -48,24 +48,20 @@ def clean_lyrics(lyrics):
     return lyrics
 
 
-def build_recommender_word2vec(corpus, embedding_file):
+def build_recommender_word2vec(corpus):
     """
     Function to load and train the Word2Vec model on the corpus.
 
     Args:
         corpus (list[list[str]]): corpus of songs.
-        embedding_file (str): Google's pre-trained word2vec vectors.
     """
-    # google_word2vec = KeyedVectors.load_word2vec_format(embedding_file, binary = True)
-
     # Training the corpus with the model
-    google_model = Word2Vec(vector_size=300, window=5, min_count=2, workers=-1)
-    google_model.build_vocab(corpus)
+    model = Word2Vec(vector_size=300, window=5, min_count=2, workers=-1)
+    model.build_vocab(corpus)
 
-    # google_model.intersect_word2vec_format(embedding_file, lockf = 1.0, binary = True)
-    google_model.train(corpus, total_examples=google_model.corpus_count, epochs=5)
+    model.train(corpus, total_examples=model.corpus_count, epochs=5)
 
-    return google_model
+    return model
 
 
 def create_avg_word2vec_embeddings(df_lyrics, model):
@@ -107,17 +103,7 @@ def visualize_embeddings(w2v):
     """
     X = w2v.wv[w2v.wv.key_to_index]
     pca = PCA(n_components=2)
-
     result = pca.fit_transform(X)
-
-    # # create a scatter plot of the projection
-    # plt.scatter(result[:, 0], result[:, 1])
-    # words = list(w2v.wv.key_to_index)
-
-    # for i, word in enumerate(words):
-    #     plt.annotate(word, xy=(result[i, 0], result[i, 1]))
-
-    #     plt.show()
 
     words = list(w2v.wv.key_to_index)
 
@@ -184,18 +170,12 @@ if __name__ == "__main__":
         "--csv-file", required=True, help="csv file containing the lyrics"
     )
     parser.add_argument(
-        "--embedding-file",
-        required=True,
-        help="embedding file containing Google's pre-trained word2vec vectors",
-    )
-    parser.add_argument(
         "--title", required=True, help="song title to get recommendations from"
     )
     args = parser.parse_args()
 
     artist = args.artist
     csv_file = args.csv_file
-    embedding_file = args.embedding_file
     title = args.title
 
     df = pd.read_csv(csv_file)
@@ -206,7 +186,7 @@ if __name__ == "__main__":
     for words in df.lyrics:
         corpus.append(words.split())
 
-    model = build_recommender_word2vec(corpus, embedding_file)
+    model = build_recommender_word2vec(corpus)
 
     word_embeddings = create_avg_word2vec_embeddings(df.lyrics, model)
 

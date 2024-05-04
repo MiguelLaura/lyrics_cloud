@@ -21,6 +21,8 @@ pre-commit install
 
 Before committing, `black` and [generate_readme.py](script/generate_readme.py) will automatically run.
 
+To change the README file, change [README.template.md](README.template.md) first and generate the README after (or let the pre-commit do it).
+
 ## Usage
 
 ### Command line
@@ -40,7 +42,15 @@ options:
 
 #### Recommender system
 
-You must download Google's pre-trained word2vec vectors [here](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?resourcekey=0-wjGZdNAUop6WykTtMip30g).
+```bash
+usage: python lyrics_cloud/content_based_recommender.py [-h] --artist ARTIST --csv-file CSV_FILE --title TITLE
+
+options:
+  -h, --help           show this help message and exit
+  --artist ARTIST      artist singing the song to get recommendations from
+  --csv-file CSV_FILE  csv file containing the lyrics
+  --title TITLE        song title to get recommendations from
+```
 
 {toc}
 {docs}
