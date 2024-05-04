@@ -22,10 +22,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from lyrics_cloud.utils import clean_lyrics
 
 
-warnings.filterwarnings("ignore")
-nltk.download("stopwords")
-
-
 def prepare_lyrics(lyrics):
     """
     Function to prepare the lyrics (remove stop words, punctuation, etc.).
@@ -163,6 +159,8 @@ def recommend_with_word2vec(df, artist, title, word_embeddings):
 
 
 if __name__ == "__main__":
+    warnings.filterwarnings("ignore")
+    nltk.download("stopwords")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
