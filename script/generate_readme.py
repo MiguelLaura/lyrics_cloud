@@ -8,10 +8,40 @@ import io
 
 from docdocdoc.build import generate_readme
 from lyrics_cloud.artists_lyrics import get_lyrics
+from lyrics_cloud.content_based_recommender import (
+    build_recommender_word2vec,
+    create_avg_word2vec_embeddings,
+    prepare_lyrics,
+    recommend_with_word2vec,
+    visualize_embeddings,
+)
 from lyrics_cloud.utils import clean_lyrics
 
 
-DOCS = [{"title": "Functions", "fns": [get_lyrics, clean_lyrics]}]
+DOCS = [
+    {
+        "title": "Scraper",
+        "fns": [
+            get_lyrics,
+        ],
+    },
+    {
+        "title": "Recommender",
+        "fns": [
+            build_recommender_word2vec,
+            create_avg_word2vec_embeddings,
+            prepare_lyrics,
+            recommend_with_word2vec,
+            visualize_embeddings,
+        ],
+    },
+    {
+        "title": "Utils",
+        "fns": [
+            clean_lyrics,
+        ],
+    },
+]
 
 
 if __name__ == "__main__":

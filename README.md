@@ -52,13 +52,20 @@ options:
   --title TITLE        song title to get recommendations from
 ```
 
-* [Functions](#functions)
+* [Scraper](#scraper)
   * [get_lyrics](#get_lyrics)
+* [Recommender](#recommender)
+  * [build_recommender_word2vec](#build_recommender_word2vec)
+  * [create_avg_word2vec_embeddings](#create_avg_word2vec_embeddings)
+  * [prepare_lyrics](#prepare_lyrics)
+  * [recommend_with_word2vec](#recommend_with_word2vec)
+  * [visualize_embeddings](#visualize_embeddings)
+* [Utils](#utils)
   * [clean_lyrics](#clean_lyrics)
 
 ---
 
-### Functions
+### Scraper
 
 #### get_lyrics
 
@@ -69,6 +76,58 @@ Function to write lyrics from a list of artists into a csv file.
 * **artists** *list[str]* - list of artists name.
 * **output_file** *str* - name of the output image (csv format).
 * **token** *str* - token for the genius API (https://docs.genius.com/).
+
+---
+
+### Recommender
+
+#### build_recommender_word2vec
+
+Function to load and train the Word2Vec model on the corpus.
+
+*Arguments*
+
+* **corpus** *list[list[str]* - corpus of songs.
+
+#### create_avg_word2vec_embeddings
+
+Function to create the averaged word2vec embeddings.
+
+*Arguments*
+
+* **df_lyrics** *Series* - lyrics.
+* **model** - the trained word2vec model.
+
+#### prepare_lyrics
+
+Function to prepare the lyrics (remove stop words, punctuation, etc.).
+
+*Arguments*
+
+* **lyrics** *str* - lyrics of a song.
+
+#### recommend_with_word2vec
+
+Function to recommend a song based on a title and artist.
+
+*Arguments*
+
+* **df** *dataframe* - base dataframe with all the information.
+* **artist** *str* - artist singing the song to get recommendations from.
+* **title** *str* - song title to get recommendations from.
+* **word_embeddings** - averaged word2vec embeddings.
+
+#### visualize_embeddings
+
+Function to visualize the word2vec embeddings.
+
+*Arguments*
+
+* **w2v** - the trained word2vec model.
+
+---
+
+### Utils
 
 #### clean_lyrics
 
