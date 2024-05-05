@@ -15,6 +15,7 @@ from lyrics_cloud.content_based_recommender import (
     recommend_with_word2vec,
     visualize_embeddings,
 )
+from lyrics_cloud.word_cloud import generate_word_cloud
 from lyrics_cloud.utils import clean_lyrics, prepare_text
 
 
@@ -30,15 +31,21 @@ DOCS = [
         "fns": [
             build_recommender_word2vec,
             create_avg_word2vec_embeddings,
-            prepare_text,
             recommend_with_word2vec,
             visualize_embeddings,
+        ],
+    },
+    {
+        "title": "Word cloud",
+        "fns": [
+            generate_word_cloud,
         ],
     },
     {
         "title": "Utils",
         "fns": [
             clean_lyrics,
+            prepare_text,
         ],
     },
 ]

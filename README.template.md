@@ -52,5 +52,17 @@ options:
   --title TITLE        song title to get recommendations from
 ```
 
+#### Word cloud
+
+```bash
+usage: python -m lyrics_cloud.word_cloud [-h] --artist ARTIST --csv-file CSV_FILE --title TITLE
+
+options:
+  -h, --help           show this help message and exit
+  --artist ARTIST      artist singing the song to get recommendations from
+  --csv-file CSV_FILE  csv file containing the lyrics
+  --title TITLE        song title to get recommendations from
+```
+
 {toc}
 {docs}

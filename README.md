@@ -52,16 +52,30 @@ options:
   --title TITLE        song title to get recommendations from
 ```
 
+#### Word cloud
+
+```bash
+usage: python -m lyrics_cloud.word_cloud [-h] --artist ARTIST --csv-file CSV_FILE --title TITLE
+
+options:
+  -h, --help           show this help message and exit
+  --artist ARTIST      artist singing the song to get recommendations from
+  --csv-file CSV_FILE  csv file containing the lyrics
+  --title TITLE        song title to get recommendations from
+```
+
 * [Scraper](#scraper)
   * [get_lyrics](#get_lyrics)
 * [Recommender](#recommender)
   * [build_recommender_word2vec](#build_recommender_word2vec)
   * [create_avg_word2vec_embeddings](#create_avg_word2vec_embeddings)
-  * [prepare_text](#prepare_text)
   * [recommend_with_word2vec](#recommend_with_word2vec)
   * [visualize_embeddings](#visualize_embeddings)
+* [Word cloud](#word-cloud)
+  * [generate_word_cloud](#generate_word_cloud)
 * [Utils](#utils)
   * [clean_lyrics](#clean_lyrics)
+  * [prepare_text](#prepare_text)
 
 ---
 
@@ -106,18 +120,6 @@ Function to create the averaged word2vec embeddings.
 
 *list[float]* - lyrics averaged word2vec embeddings.
 
-#### prepare_text
-
-Function to prepare the text (remove stop words, punctuation, etc.).
-
-*Arguments*
-
-* **text** *str* - text to prepare.
-
-*Returns*
-
-*str* - cleaned and tokenized text.
-
 #### recommend_with_word2vec
 
 Function to recommend a song based on a title and artist.
@@ -142,6 +144,18 @@ Function to visualize the word2vec embeddings.
 
 ---
 
+### Word cloud
+
+#### generate_word_cloud
+
+Function to plot a text word cloud.
+
+*Arguments*
+
+* **text** *str* - text to output in the word cloud.
+
+---
+
 ### Utils
 
 #### clean_lyrics
@@ -155,3 +169,15 @@ Function to clean the lyrics.
 *Returns*
 
 *str* - cleaned lyrics.
+
+#### prepare_text
+
+Function to prepare the text (remove stop words, punctuation, etc.).
+
+*Arguments*
+
+* **text** *str* - text to prepare.
+
+*Returns*
+
+*str* - cleaned and tokenized text.
