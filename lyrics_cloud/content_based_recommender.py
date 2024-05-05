@@ -22,32 +22,32 @@ from sklearn.metrics.pairwise import cosine_similarity
 from lyrics_cloud.utils import clean_lyrics
 
 
-def prepare_lyrics(lyrics):
+def prepare_text(text):
     """
-    Function to prepare the lyrics (remove stop words, punctuation, etc.).
+    Function to prepare the text (remove stop words, punctuation, etc.).
 
     Args:
-        lyrics (str): lyrics of a song.
+        text (str): text to prepare.
     Returns:
-        str: cleaned and tokenized lyrics.
+        str: cleaned and tokenized text.
     """
 
-    lyrics = lyrics.lower()
+    text = text.lower()
 
-    lyrics = clean_lyrics(lyrics)
+    text = clean_lyrics(text)
 
     # Remove stop words
-    lyrics = lyrics.split()
+    text = text.split()
     stops = set(stopwords.words("english"))
-    lyrics = [w for w in lyrics if not w in stops]
-    lyrics = " ".join(lyrics)
+    text = [w for w in text if not w in stops]
+    text = " ".join(text)
 
     # Function for removing punctuation
     tokenizer = RegexpTokenizer(r"\w+")
-    lyrics = tokenizer.tokenize(lyrics)
-    lyrics = " ".join(lyrics)
+    text = tokenizer.tokenize(text)
+    text = " ".join(text)
 
-    return lyrics
+    return text
 
 
 def build_recommender_word2vec(corpus):
@@ -74,11 +74,11 @@ def create_avg_word2vec_embeddings(df_lyrics, model):
 
     Args:
         df_lyrics (Series): lyrics.
-        model: the trained word2vec model.
+        model: trained word2vec model.
     Returns:
         list[float]: lyrics averaged word2vec embeddings.
     """
-    word_embeddings = []
+    embeddings = []
 
     for line in df_lyrics:
 
@@ -95,9 +95,9 @@ def create_avg_word2vec_embeddings(df_lyrics, model):
 
         if avgword2vec is not None:
             avgword2vec = avgword2vec / count
-            word_embeddings.append(avgword2vec)
+            embeddings.append(avgword2vec)
 
-    return word_embeddings
+    return embeddings
 
 
 def visualize_embeddings(w2v):
@@ -105,7 +105,7 @@ def visualize_embeddings(w2v):
     Function to visualize the word2vec embeddings.
 
     Args:
-        w2v: the trained word2vec model.
+        w2v: trained word2vec model.
     Returns:
         dataframe: PCA dataframe.
     """
@@ -137,30 +137,25 @@ def visualize_embeddings(w2v):
     return pca_df
 
 
-def recommend_with_word2vec(df, artist, title, word_embeddings):
+def recommend_with_word2vec(idx, embeddings, nb_reco=5):
     """
     Function to recommend a song based on a title and artist.
 
     Args:
-        df (dataframe): base dataframe with all the information.
-        artist (str): artist singing the song to get recommendations from.
-        title (str): song title to get recommendations from.
-        word_embeddings: averaged word2vec embeddings.
+        idx (int): index of the item to get recommendations from.
+        embeddings (list[float]): averaged word2vec embeddings.
+        nb_reco (int): number of recommendations to return.
+    Returs:
+        list(int): list of indexes of the items recommended.
     """
-    lyrics = df.loc[(df["artist"] == artist) & (df["title"] == title)]
+    cosine_similarities = cosine_similarity(embeddings, embeddings)
 
-    # Finding cosine similarity for the vectors
-    cosine_similarities = cosine_similarity(word_embeddings, word_embeddings)
-
-    idx = lyrics.index.values[0]
     sim_scores = list(enumerate(cosine_similarities[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:6]
-    song_indices = [i[0] for i in sim_scores]
-    recommend = df.iloc[song_indices]
+    sim_scores = sim_scores[1 : nb_reco + 1]
+    result = [i[0] for i in sim_scores]
 
-    for index, (_, row) in enumerate(recommend.iterrows()):
-        print(index + 1, row["title"], "by", row["artist"])
+    return result
 
 
 if __name__ == "__main__":
@@ -181,22 +176,28 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    artist = args.artist
+    artist = args.artist.lower()
     csv_file = args.csv_file
-    title = args.title
+    title = args.title.lower()
 
     df = pd.read_csv(csv_file)
-    df.lyrics = df.lyrics.apply(func=prepare_lyrics)
+    df["artist_prepared"] = df.artist.apply(func=prepare_text)
+    df["title_prepared"] = df.title.apply(func=prepare_text)
+    df.lyrics = df.lyrics.apply(func=prepare_text)
 
-    # Create corpus
-    corpus = []
+    lyrics_corpus = []
     for words in df.lyrics:
-        corpus.append(words.split())
+        lyrics_corpus.append(words.split())
+    lyrics_model = build_recommender_word2vec(lyrics_corpus)
+    lyrics_embeddings = create_avg_word2vec_embeddings(df.lyrics, lyrics_model)
+    visualize_embeddings(lyrics_model)
 
-    model = build_recommender_word2vec(corpus)
+    lyrics = df.loc[(df["artist_prepared"] == artist) & (df["title_prepared"] == title)]
+    idx = lyrics.index.values[0]
+    song_indices = recommend_with_word2vec(idx, lyrics_embeddings)
+    recommend = df.iloc[song_indices]
 
-    word_embeddings = create_avg_word2vec_embeddings(df.lyrics, model)
-
-    visualize_embeddings(model)
-
-    recommend_with_word2vec(df, artist, title, word_embeddings)
+    result = []
+    for index, (_, row) in enumerate(recommend.iterrows()):
+        print(index + 1, row["title"], "by", row["artist"])
+        result.append((row["artist"], row["title"]))

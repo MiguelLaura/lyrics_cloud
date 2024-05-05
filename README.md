@@ -57,7 +57,7 @@ options:
 * [Recommender](#recommender)
   * [build_recommender_word2vec](#build_recommender_word2vec)
   * [create_avg_word2vec_embeddings](#create_avg_word2vec_embeddings)
-  * [prepare_lyrics](#prepare_lyrics)
+  * [prepare_text](#prepare_text)
   * [recommend_with_word2vec](#recommend_with_word2vec)
   * [visualize_embeddings](#visualize_embeddings)
 * [Utils](#utils)
@@ -100,23 +100,23 @@ Function to create the averaged word2vec embeddings.
 *Arguments*
 
 * **df_lyrics** *Series* - lyrics.
-* **model** - the trained word2vec model.
+* **model** - trained word2vec model.
 
 *Returns*
 
 *list[float]* - lyrics averaged word2vec embeddings.
 
-#### prepare_lyrics
+#### prepare_text
 
-Function to prepare the lyrics (remove stop words, punctuation, etc.).
+Function to prepare the text (remove stop words, punctuation, etc.).
 
 *Arguments*
 
-* **lyrics** *str* - lyrics of a song.
+* **text** *str* - text to prepare.
 
 *Returns*
 
-*str* - cleaned and tokenized lyrics.
+*str* - cleaned and tokenized text.
 
 #### recommend_with_word2vec
 
@@ -124,10 +124,9 @@ Function to recommend a song based on a title and artist.
 
 *Arguments*
 
-* **df** *dataframe* - base dataframe with all the information.
-* **artist** *str* - artist singing the song to get recommendations from.
-* **title** *str* - song title to get recommendations from.
-* **word_embeddings** - averaged word2vec embeddings.
+* **idx** *int* - index of the item to get recommendations from.
+* **embeddings** *list[float]* - averaged word2vec embeddings.
+* **nb_reco** *int* - number of recommendations to return.
 
 #### visualize_embeddings
 
@@ -135,7 +134,7 @@ Function to visualize the word2vec embeddings.
 
 *Arguments*
 
-* **w2v** - the trained word2vec model.
+* **w2v** - trained word2vec model.
 
 *Returns*
 

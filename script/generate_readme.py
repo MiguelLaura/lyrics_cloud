@@ -11,7 +11,7 @@ from lyrics_cloud.artists_lyrics import get_lyrics
 from lyrics_cloud.content_based_recommender import (
     build_recommender_word2vec,
     create_avg_word2vec_embeddings,
-    prepare_lyrics,
+    prepare_text,
     recommend_with_word2vec,
     visualize_embeddings,
 )
@@ -30,7 +30,7 @@ DOCS = [
         "fns": [
             build_recommender_word2vec,
             create_avg_word2vec_embeddings,
-            prepare_lyrics,
+            prepare_text,
             recommend_with_word2vec,
             visualize_embeddings,
         ],

@@ -34,6 +34,7 @@ def get_lyrics(artists, output_file, token):
         for name in tqdm(
             artists, total=len(artists), desc="Number of artists", position=0
         ):
+            name = name.lower()
             artist_songs = genius.search_artist(name, sort="title").songs
 
             for song in tqdm(
@@ -43,7 +44,8 @@ def get_lyrics(artists, output_file, token):
                 position=1,
             ):
                 lyrics = clean_lyrics(song.lyrics)
-                row = [name, song.title, lyrics]
+                title = song.title.lower()
+                row = [name, title, lyrics]
                 writer.writerow(row)
 
 
