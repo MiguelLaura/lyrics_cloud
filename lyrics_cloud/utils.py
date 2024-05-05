@@ -18,6 +18,8 @@ def clean_lyrics(lyrics):
 
     Args:
         lyrics (str): lyrics of a song.
+    Returns:
+        str: cleaned lyrics.
     """
 
     lyrics = lyrics.lower()

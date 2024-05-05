@@ -28,6 +28,8 @@ def prepare_lyrics(lyrics):
 
     Args:
         lyrics (str): lyrics of a song.
+    Returns:
+        str: cleaned and tokenized lyrics.
     """
 
     lyrics = lyrics.lower()
@@ -50,10 +52,12 @@ def prepare_lyrics(lyrics):
 
 def build_recommender_word2vec(corpus):
     """
-    Function to load and train the Word2Vec model on the corpus.
+    Function to load and train the word2vec model on the corpus.
 
     Args:
         corpus (list[list[str]]): corpus of songs.
+    Returns:
+        model: trained word2vec model.
     """
     # Training the corpus with the model
     model = Word2Vec(vector_size=300, window=5, min_count=2, workers=-1)
@@ -71,6 +75,8 @@ def create_avg_word2vec_embeddings(df_lyrics, model):
     Args:
         df_lyrics (Series): lyrics.
         model: the trained word2vec model.
+    Returns:
+        list[float]: lyrics averaged word2vec embeddings.
     """
     word_embeddings = []
 
@@ -100,6 +106,8 @@ def visualize_embeddings(w2v):
 
     Args:
         w2v: the trained word2vec model.
+    Returns:
+        dataframe: PCA dataframe.
     """
     X = w2v.wv[w2v.wv.key_to_index]
     pca = PCA(n_components=2)

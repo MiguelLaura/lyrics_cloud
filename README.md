@@ -83,11 +83,15 @@ Function to write lyrics from a list of artists into a csv file.
 
 #### build_recommender_word2vec
 
-Function to load and train the Word2Vec model on the corpus.
+Function to load and train the word2vec model on the corpus.
 
 *Arguments*
 
 * **corpus** *list[list[str]* - corpus of songs.
+
+*Returns*
+
+*model* - trained word2vec model.
 
 #### create_avg_word2vec_embeddings
 
@@ -98,6 +102,10 @@ Function to create the averaged word2vec embeddings.
 * **df_lyrics** *Series* - lyrics.
 * **model** - the trained word2vec model.
 
+*Returns*
+
+*list[float]* - lyrics averaged word2vec embeddings.
+
 #### prepare_lyrics
 
 Function to prepare the lyrics (remove stop words, punctuation, etc.).
@@ -105,6 +113,10 @@ Function to prepare the lyrics (remove stop words, punctuation, etc.).
 *Arguments*
 
 * **lyrics** *str* - lyrics of a song.
+
+*Returns*
+
+*str* - cleaned and tokenized lyrics.
 
 #### recommend_with_word2vec
 
@@ -125,6 +137,10 @@ Function to visualize the word2vec embeddings.
 
 * **w2v** - the trained word2vec model.
 
+*Returns*
+
+*dataframe* - PCA dataframe.
+
 ---
 
 ### Utils
@@ -136,3 +152,7 @@ Function to clean the lyrics.
 *Arguments*
 
 * **lyrics** *str* - lyrics of a song.
+
+*Returns*
+
+*str* - cleaned lyrics.
