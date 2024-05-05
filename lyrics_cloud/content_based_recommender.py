@@ -11,43 +11,13 @@ import warnings
 
 from gensim.models import Word2Vec
 import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import RegexpTokenizer
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 
-from lyrics_cloud.utils import clean_lyrics
-
-
-def prepare_text(text):
-    """
-    Function to prepare the text (remove stop words, punctuation, etc.).
-
-    Args:
-        text (str): text to prepare.
-    Returns:
-        str: cleaned and tokenized text.
-    """
-
-    text = text.lower()
-
-    text = clean_lyrics(text)
-
-    # Remove stop words
-    text = text.split()
-    stops = set(stopwords.words("english"))
-    text = [w for w in text if not w in stops]
-    text = " ".join(text)
-
-    # Function for removing punctuation
-    tokenizer = RegexpTokenizer(r"\w+")
-    text = tokenizer.tokenize(text)
-    text = " ".join(text)
-
-    return text
+from lyrics_cloud.utils import clean_lyrics, prepare_text
 
 
 def build_recommender_word2vec(corpus):
@@ -181,8 +151,8 @@ if __name__ == "__main__":
     title = args.title.lower()
 
     df = pd.read_csv(csv_file)
-    df["artist_prepared"] = df.artist.apply(func=prepare_text)
-    df["title_prepared"] = df.title.apply(func=prepare_text)
+    df["artist_prepared"] = df.artist.apply(func=clean_lyrics)
+    df["title_prepared"] = df.title.apply(func=clean_lyrics)
     df.lyrics = df.lyrics.apply(func=prepare_text)
 
     lyrics_corpus = []

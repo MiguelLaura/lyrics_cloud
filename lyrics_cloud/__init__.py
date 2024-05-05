@@ -3,4 +3,4 @@
 # =============================================================================
 #
 
-from lyrics_cloud.utils import clean_lyrics
+from lyrics_cloud.utils import clean_lyrics, prepare_text
