@@ -30,11 +30,12 @@ To change the README file, change [README.template.md](README.template.md) first
 #### Get the lyrics to artists' songs
 
 ```bash
-usage: python -m lyrics_cloud.artists_lyrics [-h] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
+usage: python -m lyrics_cloud.artists_lyrics [-h] [--method [list,file]] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
 
 options:
   -h, --help            show this help message and exit
-  --artists ARTISTS     list of artists
+  --method [list,file]
+  --artists ARTISTS     list of artists or text file with one artist per line
   --output-file OUTPUT_FILE
                         csv file to write the results
   --token TOKEN         token for the genius API (https://docs.genius.com/)
@@ -65,6 +66,7 @@ options:
 ```
 
 * [Scraper](#scraper)
+  * [get_artists_from_file](#get_artists_from_file)
   * [get_lyrics](#get_lyrics)
 * [Recommender](#recommender)
   * [build_recommender_word2vec](#build_recommender_word2vec)
@@ -81,6 +83,18 @@ options:
 
 ### Scraper
 
+#### get_artists_from_file
+
+Function to get artists from a txt file.
+
+*Arguments*
+
+* **file** *str* - name of the input file (txt format).
+
+*Yields*
+
+*str* - artist's name.
+
 #### get_lyrics
 
 Function to write lyrics from a list of artists into a csv file.
@@ -88,7 +102,7 @@ Function to write lyrics from a list of artists into a csv file.
 *Arguments*
 
 * **artists** *list[str]* - list of artists name.
-* **output_file** *str* - name of the output image (csv format).
+* **output_file** *str* - name of the output file (csv format).
 * **token** *str* - token for the genius API (https://docs.genius.com/).
 
 ---

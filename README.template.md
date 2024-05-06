@@ -30,11 +30,12 @@ To change the README file, change [README.template.md](README.template.md) first
 #### Get the lyrics to artists' songs
 
 ```bash
-usage: python -m lyrics_cloud.artists_lyrics [-h] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
+usage: python -m lyrics_cloud.artists_lyrics [-h] [--method [list,file]] --artists ARTISTS --output-file OUTPUT_FILE --token TOKEN
 
 options:
   -h, --help            show this help message and exit
-  --artists ARTISTS     list of artists
+  --method [list,file]
+  --artists ARTISTS     list of artists or text file with one artist per line
   --output-file OUTPUT_FILE
                         csv file to write the results
   --token TOKEN         token for the genius API (https://docs.genius.com/)

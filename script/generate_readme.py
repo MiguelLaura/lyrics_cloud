@@ -8,7 +8,7 @@ import io
 
 from docdocdoc.build import generate_readme
 
-from lyrics_cloud.artists_lyrics import get_lyrics
+from lyrics_cloud.artists_lyrics import get_artists_from_file, get_lyrics
 from lyrics_cloud.content_based_recommender import (
     build_recommender_word2vec,
     create_avg_word2vec_embeddings,
@@ -23,6 +23,7 @@ DOCS = [
     {
         "title": "Scraper",
         "fns": [
+            get_artists_from_file,
             get_lyrics,
         ],
     },
