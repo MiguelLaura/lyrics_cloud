@@ -14,9 +14,10 @@ You need to set a python environment (tested version: 3.10.5). Then, in your she
 
 ## Contributing
 
-To install the Git hooks:
+To install the Git hooks and set it up correctly:
 ```bash
 pre-commit install
+pre-commit run --all-files
 ```
 
 Before committing, `black` and [generate_readme.py](script/generate_readme.py) will automatically run.
